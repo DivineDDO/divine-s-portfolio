@@ -22,21 +22,21 @@ export const blenderProjects = [
     id: 1,
     title: "Sci-Fi Tunnel",
     description: "A futuristic tunnel environment render.",
-    thumbnail: "/images/blender/tunnel.png",
+    thumbnail: "/images/placeholder-project.svg",
     link: "https://link-to-project.com",
   },
   {
     id: 2,
     title: "Abstract Sculpture",
     description: "3D abstract sculpture using dynamic lighting.",
-    thumbnail: "/images/blender/sculpture.png",
+    thumbnail: "/images/placeholder-project.svg",
     link: "https://link-to-project.com",
   },
   {
-  id: 3,
-  title: "BMO Model",
-  description: "3D model of BMO from Adventure Time.",
-  thumbnail: "C:\Users\divin\divine-portfolio\app\BMO.png",
-}
-
+    id: 3,
+    title: "BMO Model",
+    description: "3D model of BMO from Adventure Time.",
+    thumbnail: "/images/blender/BMO.png",
+    link: "https://link-to-project.com",
+  },
 ];

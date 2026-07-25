@@ -1,5 +1,6 @@
 "use client";
 
+import { useState } from "react";
 import { motion } from "framer-motion";
 import Image from "next/image";
 import Navbar from "../components/Navbar";
@@ -7,6 +8,22 @@ import FloatingParticles from "@/components/FloatingParticles";
 import { blenderProjects } from "./data";
 import ContactForm from "../components/ContactForm";
 import SoftParticles from "@/components/SoftParticles";
+
+function ProjectPreview({ src, alt }) {
+  const [imageSrc, setImageSrc] = useState(src);
+
+  return (
+    <div className="relative mb-4 w-full h-52 overflow-hidden rounded-2xl bg-neutral-800/80 border border-white/10">
+      <Image
+        src={imageSrc}
+        alt={alt}
+        fill
+        className="object-cover"
+        onError={() => setImageSrc("/images/placeholder-project.svg")}
+      />
+    </div>
+  );
+}
 
 // section color map — used to give each section an accent bar that matches the navbar color
 const SECTION_COLORS = {
@@ -36,7 +53,7 @@ export default function Home() {
           initial={{ opacity: 0, y: -20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8 }}
-          className="text-6xl font-extrabold tracking-tight mb-3 mt-24 text-transparent bg-clip-text bg-gradient-to-r from-red-700 via-purple-600 to-red-700 animate-pulse-slow drop-shadow-[0_0_10px_rgba(255,255,255,0.4)]"
+          className="text-6xl md:text-7xl font-extrabold tracking-tight mb-3 mt-24 text-transparent bg-clip-text bg-gradient-to-r from-red-600 via-white/90 to-purple-500 animate-pulse-slow"
         >
           Divine Obienu
         </motion.h1>
@@ -46,7 +63,7 @@ export default function Home() {
           initial={{ opacity: 0, y: -10 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 2, delay: 0.5 }}
-          className="text-lg md:text-xl text-white max-w-xl text-center z-10 relative"
+          className="text-lg md:text-xl text-neutral-300 max-w-xl text-center z-10 relative tracking-[0.2em] uppercase"
         >
           Design Engineer • Creator • Innovator
         </motion.h2>
@@ -55,17 +72,16 @@ export default function Home() {
           {/* Projects Section */}
       <section
         id="projects"
-        className="min-h-screen flex flex-col justify-center items-center px-8 py-20 border-t border-neutral-800"
+        className="min-h-screen flex flex-col justify-center items-center px-8 py-24 border-t border-neutral-800/80"
       >
-        <h2 className="text-4xl font-bold mb-2 text-transparent bg-clip-text bg-gradient-to-r from-red-600 to-purple-600">
-          Projects
-        </h2>
-        <div
-          className="section-accent mb-10"
-          style={{ background: "#3B82F6" }}
-        />
+        <div className="max-w-5xl w-full">
+          <h2 className="text-4xl font-semibold mb-2 text-white tracking-tight">
+            Projects
+          </h2>
+          <div className="h-1 w-24 rounded-full mb-10" style={{ background: "linear-gradient(90deg, #f43f5e, #a78bfa)" }} />
+        </div>
 
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
+        <div className="grid grid-cols-1 sm:grid-cols-2 gap-8 w-full max-w-5xl justify-items-center">
           {/* Transitional Chess */}
           <a
             href="https://1drv.ms/p/c/f5bd0da8c5428b6f/EdmV14zrVQNDo9OLi6NbbgkBsy614qP7DozEm5fwVdV7xA?e=33pYzf"
@@ -75,9 +91,9 @@ export default function Home() {
             <motion.div
               whileHover={{ scale: 1.1 }}
               transition={{ type: "spring", stiffness: 200, damping: 12 }}
-              className="bg-gradient-to-br from-[#1c0f0f]/60 to-[#301010]/60 border border-red-900/20 rounded-2xl p-6 backdrop-blur-md shadow-lg hover:shadow-[0_0_25px_rgba(255,215,0,0.3)] hover:border-yellow-400/40 transition cursor-pointer"
+              className="bg-gradient-to-br from-neutral-900/90 to-neutral-800/70 border border-white/10 rounded-3xl p-6 backdrop-blur-md shadow-[0_10px_30px_rgba(0,0,0,0.25)] hover:shadow-[0_16px_40px_rgba(255,255,255,0.08)] hover:border-white/20 transition cursor-pointer"
             >
-              <h3 className="text-xl font-semibold text-yellow-400 mb-2 drop-shadow-[0_0_6px_rgba(255,215,0,0.3)]">
+              <h3 className="text-xl font-semibold text-white mb-2">
                 Educational Games and Toys: Transitional Chess
               </h3>
               <p className="text-gray-300 text-sm leading-relaxed">
@@ -86,29 +102,6 @@ export default function Home() {
                 added spatial layer can increase strategic depth and encourage
                 players to think more abstractly about movement, position and
                 interaction.
-              </p>
-            </motion.div>
-          </a>
-
-          {/* Skating Tunnel Concept */}
-          <a
-            href="https://wrenacademylondon.sharepoint.com/:p:/r/sites/WENF12E3DDesign-6Divine/Shared%20Documents/6%20Divine/Improving%20Urban%20spaces.pptx?d=w614863df012044dfb6a0da0e13b1ae2e&csf=1&web=1&e=ntDLY5"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <motion.div
-              whileHover={{ scale: 1.1 }}
-              transition={{ type: "spring", stiffness: 200, damping: 12 }}
-              className="bg-gradient-to-br from-[#1a0f2a]/60 to-[#2b1040]/60 border border-purple-900/20 rounded-2xl p-6 backdrop-blur-md shadow-lg hover:shadow-[0_0_25px_rgba(186,85,211,0.3)] hover:border-purple-400/40 transition cursor-pointer"
-            >
-              <h3 className="text-xl font-semibold text-purple-300 mb-2 drop-shadow-[0_0_6px_rgba(186,85,211,0.3)]">
-                Improving Urban Spaces: Skating Tunnel Concept
-              </h3>
-              <p className="text-gray-300 text-sm leading-relaxed">
-                A tunnel concept for skaters that combines flowing, organic
-                geometry with community artwork. The project focuses on turning
-                neglected circulation space into a safer, expressive environment
-                that invites young people to move, gather and create.
               </p>
             </motion.div>
           </a>
@@ -122,9 +115,9 @@ export default function Home() {
             <motion.div
               whileHover={{ scale: 1.1 }}
               transition={{ type: "spring", stiffness: 200, damping: 12 }}
-              className="bg-gradient-to-br from-[#1c1a0f]/60 to-[#332b10]/60 border border-yellow-900/20 rounded-2xl p-6 backdrop-blur-md shadow-lg hover:shadow-[0_0_25px_rgba(255,215,0,0.3)] hover:border-yellow-400/40 transition cursor-pointer"
+              className="bg-gradient-to-br from-neutral-900/90 to-neutral-800/70 border border-white/10 rounded-3xl p-6 backdrop-blur-md shadow-[0_10px_30px_rgba(0,0,0,0.25)] hover:shadow-[0_16px_40px_rgba(255,255,255,0.08)] hover:border-white/20 transition cursor-pointer"
             >
-              <h3 className="text-xl font-semibold text-yellow-300 mb-2 drop-shadow-[0_0_6px_rgba(255,215,0,0.3)]">
+              <h3 className="text-xl font-semibold text-white mb-2">
                 LED Lamp
               </h3>
               <p className="text-gray-300 text-sm leading-relaxed">
@@ -142,27 +135,26 @@ export default function Home() {
       {/* CAD Skills Section */}
 <section
   id="CAD"
-  className="min-h-screen flex flex-col justify-center px-8 py-20 border-t border-neutral-800"
+  className="min-h-screen flex flex-col justify-center px-8 py-24 border-t border-neutral-800/80"
 >
-  <h2 className="text-4xl font-bold mb-2">CAD Skills</h2>
-  <div
-    className="section-accent mb-6"
-    style={{ background: SECTION_COLORS.CAD }}
-  />
+  <div className="max-w-6xl w-full mx-auto">
+    <h2 className="text-4xl font-semibold mb-2 text-white tracking-tight">CAD Skills</h2>
+    <div className="h-1 w-24 rounded-full mb-8" style={{ background: "linear-gradient(90deg, #fb923c, #f43f5e)" }} />
+  </div>
 
-  <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
+  <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6 max-w-6xl w-full mx-auto">
     {blenderProjects.map((proj) => (
       <a
         key={proj.id}
         href={proj.link}
         target="_blank"
         rel="noopener noreferrer"
-        className="bg-neutral-900 hover:bg-neutral-800 rounded-lg p-4 transition transform hover:scale-105 shadow-lg"
+        className="bg-neutral-900/70 hover:bg-neutral-800/90 rounded-3xl p-4 transition transform hover:scale-[1.01] shadow-[0_10px_30px_rgba(0,0,0,0.25)] border border-white/10"
       >
-        {/* Temporary placeholder box instead of Image */}
-        <div className="rounded-md mb-2 w-full h-48 bg-neutral-700 flex items-center justify-center text-gray-400 text-sm">
-          Preview unavailable
-        </div>
+        <ProjectPreview
+          src={proj.thumbnail || "/images/placeholder-project.svg"}
+          alt={proj.title}
+        />
 
         <h3 className="font-bold text-lg">{proj.title}</h3>
         <p className="text-gray-400 text-sm">{proj.description}</p>
@@ -175,14 +167,13 @@ export default function Home() {
       {/* Music Section */}
       <section
         id="music"
-        className="min-h-screen flex flex-col justify-center px-8 py-20 border-t border-neutral-800 relative z-10"
+        className="min-h-screen flex flex-col justify-center px-8 py-24 border-t border-neutral-800/80 relative z-10"
       >
-        <h2 className="text-4xl font-bold mb-2">Music</h2>
-        <div
-          className="section-accent mb-6"
-          style={{ background: SECTION_COLORS.music }}
-        />
-        <p className="text-gray-100 max-w-2xl mx-auto">
+        <div className="max-w-3xl w-full mx-auto">
+          <h2 className="text-4xl font-semibold mb-2 text-white tracking-tight">Music</h2>
+          <div className="h-1 w-24 rounded-full mb-8" style={{ background: "linear-gradient(90deg, #a78bfa, #38bdf8)" }} />
+        </div>
+        <p className="text-gray-200 max-w-3xl mx-auto leading-relaxed text-lg">
           Music is where I tell the stories behind everything I learn, fight, or overcome.
 I create Christian rap that blends faith, honesty, and reflection — the same mindset I bring into my engineering work. It’s another way I communicate: not just through visuals or design, but through rhythm, lyricism, and testimony.
         </p>
@@ -191,18 +182,17 @@ I create Christian rap that blends faith, honesty, and reflection — the same m
       {/* About Section */}
       <section
         id="about"
-        className="min-h-screen flex flex-col justify-center px-8 py-20 border-t border-neutral-800 relative z-10"
+        className="min-h-screen flex flex-col justify-center px-8 py-24 border-t border-neutral-800/80 relative z-10"
       >
-        <h2 className="text-4xl font-bold mb-2">About</h2>
-        <div
-          className="section-accent mb-6"
-          style={{ background: SECTION_COLORS.about }}
-        />
-        <p className="text-gray-100 max-w-2xl mx-auto">
+        <div className="max-w-4xl w-full mx-auto">
+          <h2 className="text-4xl font-semibold mb-2 text-white tracking-tight">About</h2>
+          <div className="h-1 w-24 rounded-full mb-8" style={{ background: "linear-gradient(90deg, #34d399, #60a5fa)" }} />
+        </div>
+        <p className="text-gray-200 max-w-4xl mx-auto leading-relaxed text-lg">
           I’m Divine Obienu — a Design Engineering student with a curiosity that refuses to switch off.
 I like understanding how things work, but I love figuring out how to make them better. That’s what pushes me into engineering, CAD, and digital creativity. I work across physical prototyping, 3D modelling, and product design, where I experiment with form, movement, and user experience. My approach is simple: if I can imagine it, I’ll push myself to build it — from multi-dimensional chess sets to concept tunnels inspired by organic structures.
-Beyond design, I enjoy writing and producing Christian rap, where storytelling and faith help shape how I think and create. I’m also active in my school community, whether that’s serving as Sixth Form Deputy Head, leading discussions through my ‘Why Christian?’ club, or helping younger students through mentoring and childcare.
-My long-term goal is to study Design Engineering at Imperial College and work in robotics — building things that don’t just look good, but genuinely improve how people navigate the world.
+Beyond design, I enjoy writing and producing Christian rap, where storytelling and faith help shape how I think and create. I’m also active in my school community, whether that’s serving as Sixth Form Deputy Head, leading discussions through my ‘Why Christian?’ club, or helping younger students through mentoring.
+My long-term goal is to study Design Engineering at a distinguished university; moving on to a career which involves building things that don’t just look good, but genuinely improve how people navigate the world.
 Every project on this portfolio is a step toward that future.
         </p>
       </section>
@@ -210,7 +200,7 @@ Every project on this portfolio is a step toward that future.
       {/* Contact Section */}
       <section
         id="contact"
-        className="min-h-screen flex flex-col justify-center px-8 py-20 border-t border-neutral-800 mb-20"
+        className="min-h-screen flex flex-col justify-center px-8 py-24 border-t border-neutral-800/80 mb-20"
       >
         <ContactForm />
       </section>

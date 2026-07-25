@@ -10,13 +10,27 @@ export default function ContactForm() {
     message: "",
   });
   const [sent, setSent] = useState(false);
+  const [error, setError] = useState("");
 
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
+    if (error) setError("");
+  };
+
+  const isFormValid = () => {
+    const { from_name, from_email, message } = formData;
+    return from_name.trim() !== "" && from_email.trim() !== "" && message.trim() !== "";
   };
 
   const sendEmail = (e) => {
     e.preventDefault();
+
+    if (!isFormValid()) {
+      setError("Please complete all fields before sending your message.");
+      return;
+    }
+
+    setError("");
     emailjs
       .send(
         "service_pcgxcow",
@@ -31,6 +45,7 @@ export default function ContactForm() {
         },
         (error) => {
           console.error("Email error:", error);
+          setError("Your message could not be sent. Please try again.");
         }
       );
   };
@@ -40,10 +55,10 @@ export default function ContactForm() {
       initial={{ opacity: 0, y: 20 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.8 }}
-      className="relative z-10 max-w-md mx-auto bg-white/5 backdrop-blur-lg p-8 rounded-3xl border border-white/10 shadow-lg hover:shadow-pink-400/20 transition-shadow"
+      className="relative z-10 max-w-md mx-auto bg-neutral-900/80 backdrop-blur-xl p-8 rounded-3xl border border-neutral-700/80 shadow-[0_12px_40px_rgba(0,0,0,0.35)] transition-shadow"
     >
-      <h2 className="text-3xl font-semibold text-transparent bg-clip-text bg-linear-to-r from-pink-400 to-blue-400 mb-4">
-        Contact Me...
+      <h2 className="text-3xl font-semibold text-white mb-4">
+        Contact Me
       </h2>
 
       {sent ? (
@@ -60,7 +75,7 @@ export default function ContactForm() {
               value={formData.from_name}
               onChange={handleChange}
               required
-              className="w-full p-3 rounded-xl bg-white/10 text-white placeholder-gray-400 border border-white/20 focus:outline-none focus:ring-2 focus:ring-pink-400 focus:bg-white/20 transition"
+              className="w-full p-3 rounded-xl bg-neutral-800/80 text-white placeholder-gray-400 border border-neutral-700 focus:outline-none focus:border-white/40 focus:bg-neutral-800 transition"
             />
           </div>
 
@@ -72,7 +87,7 @@ export default function ContactForm() {
               value={formData.from_email}
               onChange={handleChange}
               required
-              className="w-full p-3 rounded-xl bg-white/10 text-white placeholder-gray-400 border border-white/20 focus:outline-none focus:ring-2 focus:ring-blue-400 focus:bg-white/20 transition"
+              className="w-full p-3 rounded-xl bg-neutral-800/80 text-white placeholder-gray-400 border border-neutral-700 focus:outline-none focus:border-white/40 focus:bg-neutral-800 transition"
             />
           </div>
 
@@ -84,22 +99,26 @@ export default function ContactForm() {
               onChange={handleChange}
               required
               rows="4"
-              className="w-full p-3 rounded-xl bg-white/10 text-white placeholder-gray-400 border border-white/20 focus:outline-none focus:ring-2 focus:ring-purple-400 focus:bg-white/20 transition"
+              className="w-full p-3 rounded-xl bg-neutral-800/80 text-white placeholder-gray-400 border border-neutral-700 focus:outline-none focus:border-white/40 focus:bg-neutral-800 transition"
             ></textarea>
           </div>
+
+          {error ? (
+            <p className="text-sm text-red-300">{error}</p>
+          ) : null}
 
           <motion.button
             whileHover={{ scale: 1.05 }}
             whileTap={{ scale: 0.95 }}
             type="submit"
-            className="w-full py-3 rounded-xl bg-linear-to-r from-pink-400 via-purple-400 to-blue-400 text-white font-semibold shadow-lg shadow-pink-400/30 hover:shadow-blue-400/30 transition"
+            className="w-full py-3 rounded-xl bg-white text-neutral-950 font-semibold shadow-[0_8px_24px_rgba(255,255,255,0.15)] hover:bg-neutral-200 transition"
           >
-            Send ✈️
+            Send Message
           </motion.button>
         </form>
       )}
 
-      <div className="absolute -inset-0.5 bg-linear-to-r from-pink-400/30 via-purple-400/30 to-blue-400/30 rounded-3xl blur-xl -z-10"></div>
+      <div className="absolute inset-0 rounded-3xl border border-white/5 -z-10"></div>
     </motion.div>
   );
 }
