@@ -229,7 +229,7 @@ I create Christian rap that blends faith, honesty, and reflection — the same m
         <p className="text-gray-200 max-w-4xl mx-auto leading-relaxed text-lg">
           I'm Divine Obienu, an aspiring Design Engineer who is always curious about how things work and how to make them better. 
           I like taking an idea from a sketch to a 3D model, and then into a real-world prototype. Outside of engineering, I love to spend time making music, learning about different cultures/thought processes of people and in some occasions animals. 
-          In my music, I mainly writing things that are about faith, however a common theme you'd find in my lyrics isn't me dishing a line about "find Christ" but rather it's more about telling my story and experiences I've had. Which all in all is what everything I do is about. Telling my story.
+          In my music, I'm mainly writing things that are about faith, however a common theme you'd find in my lyrics isn't me dishing a line about "find Christ" but rather it's more about telling my story and experiences I've had. Which all in all is what everything I do is about. Telling my story.
           This portfolio showcases skills I've spent my time developing; however, it is no where near complete yet. There is still so much more I want to learn and create, and I hope to share that journey with you.
         </p>
       </section>
