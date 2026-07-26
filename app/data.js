@@ -10,18 +10,18 @@ export const projects = [
   },
   {
     id: 2,
-    title: "Drone Chassis Design",
-    description: "Lightweight drone frame optimized for speed and stability.",
-    thumbnail: "/images/projects/drone.png",
-    link: "https://link-to-project.com",
-  },
+    title: "Minimalist Lamp",
+    description: "A sleek, modern lamp design with integrated LED lighting.",
+    thumbnail: "/images/projects/lamp.png",
+    link: "https://1drv.ms/p/c/f5bd0da8c5428b6f/EdmV14zrVQNDo9OLi6NbbgkBsy614qP7DozEm5fwVdV7xA?e=33pYzf",
+  }
 ];
 
 export const blenderProjects = [
   {
     id: 1,
-    title: "Sci-Fi Tunnel",
-    description: "A futuristic tunnel environment render.",
+    title: "Skatepark (SCI-fitunnel)",
+    description: "A skatepark I designed and modelled in Blender — focused on realistic ramps, transitions, and concrete textures inspired by urban plazas.",
     thumbnail: "/images/placeholder-project.svg",
     link: "https://link-to-project.com",
   },
@@ -37,6 +37,6 @@ export const blenderProjects = [
     title: "BMO Model",
     description: "3D model of BMO from Adventure Time.",
     thumbnail: "/images/blender/BMO.png",
-    link: "https://link-to-project.com",
+    
   },
 ];

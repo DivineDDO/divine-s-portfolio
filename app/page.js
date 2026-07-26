@@ -35,6 +35,7 @@ const SECTION_COLORS = {
 };
 
 export default function Home() {
+  const [hoveredProject, setHoveredProject] = useState(null);
   return (
     <main className="relative flex flex-col items-center justify-center min-h-screen bg-neutral-950 text-white">
       <SoftParticles />
@@ -144,12 +145,10 @@ export default function Home() {
 
   <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6 max-w-6xl w-full mx-auto">
     {blenderProjects.map((proj) => (
-      <a
+      <div
         key={proj.id}
-        href={proj.link}
-        target="_blank"
-        rel="noopener noreferrer"
-        className="bg-neutral-900/70 hover:bg-neutral-800/90 rounded-3xl p-4 transition transform hover:scale-[1.01] shadow-[0_10px_30px_rgba(0,0,0,0.25)] border border-white/10"
+        onClick={() => setHoveredProject((cur) => (cur === proj.id ? null : proj.id))}
+        className="bg-neutral-900/70 rounded-3xl p-4 transition transform shadow-[0_10px_30px_rgba(0,0,0,0.25)] border border-white/10 cursor-pointer"
       >
         <ProjectPreview
           src={proj.thumbnail || "/images/placeholder-project.svg"}
@@ -158,9 +157,46 @@ export default function Home() {
 
         <h3 className="font-bold text-lg">{proj.title}</h3>
         <p className="text-gray-400 text-sm">{proj.description}</p>
-      </a>
+      </div>
     ))}
   </div>
+
+  {/* Hover overlay: centered expanded image and blurred/dimmed background */}
+  {hoveredProject && (
+    (() => {
+      const active = blenderProjects.find((p) => p.id === hoveredProject);
+      if (!active) return null;
+      const src = active.thumbnail || "/images/placeholder-project.svg";
+      return (
+        <>
+          {/* Full-screen dim + blur (does not capture pointer events so hover still works) */}
+          <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ duration: 0.28 }} className="fixed inset-0 z-40 pointer-events-auto" onClick={() => setHoveredProject(null)}>
+            <div className="absolute inset-0 bg-black/60 backdrop-blur-sm" />
+          </motion.div>
+
+          {/* Centered image */}
+          <motion.div
+            initial={{ opacity: 0, scale: 0.94 }}
+            animate={{ opacity: 1, scale: 1 }}
+            transition={{ duration: 0.28, ease: "easeOut" }}
+            className="fixed inset-0 flex items-center justify-center z-50 pointer-events-none px-6"
+          >
+            <div className="max-w-4xl w-full max-h-[80vh] rounded-3xl overflow-hidden shadow-[0_30px_80px_rgba(0,0,0,0.7)] transform">
+              <img src={src} alt={active.title} className="w-full h-full object-cover max-h-[80vh] bg-transparent" />
+            </div>
+          </motion.div>
+
+          {/* Bottom-right description */}
+          <motion.div initial={{ opacity: 0, y: 8 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.28 }} className="fixed right-6 bottom-6 max-w-sm bg-transparent p-4 rounded-lg text-white z-50 pointer-events-none">
+            <div className="backdrop-blur-sm bg-neutral-900/60 p-3 rounded-lg border border-white/10">
+              <h4 className="font-semibold">{active.title}</h4>
+              <p className="text-sm text-gray-200 mt-1">{active.description}</p>
+            </div>
+          </motion.div>
+        </>
+      );
+    })()
+  )}
 </section>
 
 
