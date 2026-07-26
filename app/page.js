@@ -227,11 +227,10 @@ I create Christian rap that blends faith, honesty, and reflection — the same m
           <div className="h-1 w-24 rounded-full mb-8" style={{ background: "linear-gradient(90deg, #34d399, #60a5fa)" }} />
         </div>
         <p className="text-gray-200 max-w-4xl mx-auto leading-relaxed text-lg">
-          I’m Divine Obienu — a Design Engineering student with a curiosity that refuses to switch off.
-I like understanding how things work, but I love figuring out how to make them better. That’s what pushes me into engineering, CAD, and digital creativity. I work across physical prototyping, 3D modelling, and product design, where I experiment with form, movement, and user experience. My approach is simple: if I can imagine it, I’ll push myself to build it — from multi-dimensional chess sets to concept tunnels inspired by organic structures.
-Beyond design, I enjoy writing and producing Christian rap, where storytelling and faith help shape how I think and create. I’m also active in my school community, whether that’s serving as Sixth Form Deputy Head, leading discussions through my ‘Why Christian?’ club, or helping younger students through mentoring.
-My long-term goal is to study Design Engineering at a distinguished university; moving on to a career which involves building things that don’t just look good, but genuinely improve how people navigate the world.
-Every project on this portfolio is a step toward that future.
+          I'm Divine Obienu, an aspiring Design Engineer who is always curious about how things work and how to make them better. 
+          I like taking an idea from a sketch to a 3D model, and then into a real-world prototype. Outside of engineering, I love to spend time making music, learning about different cultures/thought processes of people and in some occasions animals. 
+          In my music, I mainly writing things that are about faith, however a common theme you'd find in my lyrics isn't me dishing a line about "find Christ" but rather it's more about telling my story and experiences I've had. Which all in all is what everything I do is about. Telling my story.
+          This portfolio showcases skills I've spent my time developing; however, it is no where near complete yet. There is still so much more I want to learn and create, and I hope to share that journey with you.
         </p>
       </section>
 
