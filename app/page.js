@@ -13,14 +13,16 @@ function ProjectPreview({ src, alt }) {
   const [imageSrc, setImageSrc] = useState(src);
 
   return (
-    <div className="relative mb-4 w-full h-52 overflow-hidden rounded-2xl bg-neutral-800/80 border border-white/10">
+      <div className="relative mb-4 w-full h-52 overflow-hidden rounded-2xl bg-neutral-950 border border-white/10 flex items-center justify-center">
       <Image
         src={imageSrc}
         alt={alt}
         fill
         className="object-cover"
+        sizes="(max-width: 768px) 100vw, 50vw"
         onError={() => setImageSrc("/images/placeholder-project.svg")}
       />
+      <div className="absolute inset-0 bg-gradient-to-t from-neutral-950/80 via-transparent to-transparent" />
     </div>
   );
 }
@@ -181,8 +183,8 @@ export default function Home() {
             transition={{ duration: 0.28, ease: "easeOut" }}
             className="fixed inset-0 flex items-center justify-center z-50 pointer-events-none px-6"
           >
-            <div className="max-w-4xl w-full max-h-[80vh] rounded-3xl overflow-hidden shadow-[0_30px_80px_rgba(0,0,0,0.7)] transform relative h-[80vh]">
-              <Image src={src} alt={active.title} fill className="object-cover bg-transparent" />
+            <div className="max-w-4xl w-full max-h-[80vh] rounded-3xl overflow-hidden shadow-[0_30px_80px_rgba(0,0,0,0.7)] transform relative h-[80vh] bg-black/40">
+              <Image src={src} alt={active.title} fill className="object-contain" sizes="100vw" />
             </div>
           </motion.div>
 

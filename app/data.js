@@ -26,9 +26,9 @@ export const blenderProjects = [
   },
   {
     id: 2,
-    title: "Abstract Sculpture",
-    description: "3D abstract sculpture using dynamic lighting.",
-    thumbnail: "/images/placeholder-project.svg",
+    title: "Illumination",
+    description: "Blender scenes exploring lighting techniques, including global illumination, reflections, and shadows to create a realistic and atmospheric environment.",
+    thumbnail: "/images/blender/illumination.png",
   },
   {
     id: 3,
@@ -36,4 +36,10 @@ export const blenderProjects = [
     description: "A detailed Blender model of BMO from Adventure Time, emphasizing form, material detail, and stylized lighting.",
     thumbnail: "/images/blender/BMO.png",
   },
+  {
+    id: 4,
+    title: "UV Mapping Exercise",
+    description: "Practice exercise for UV mapping techniques in Blender.",
+    thumbnail: "/images/blender/uv-mapping.png",
+  }
 ];
