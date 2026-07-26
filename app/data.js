@@ -20,23 +20,20 @@ export const projects = [
 export const blenderProjects = [
   {
     id: 1,
-    title: "Skatepark (SCI-fitunnel)",
+    title: "Skatepark",
     description: "A skatepark I designed and modelled in Blender — focused on realistic ramps, transitions, and concrete textures inspired by urban plazas.",
-    thumbnail: "/images/placeholder-project.svg",
-    link: "https://link-to-project.com",
+    thumbnail: "/images/blender/skatepark.png",
   },
   {
     id: 2,
     title: "Abstract Sculpture",
     description: "3D abstract sculpture using dynamic lighting.",
     thumbnail: "/images/placeholder-project.svg",
-    link: "https://link-to-project.com",
   },
   {
     id: 3,
     title: "BMO Model",
-    description: "3D model of BMO from Adventure Time.",
+    description: "A detailed Blender model of BMO from Adventure Time, emphasizing form, material detail, and stylized lighting.",
     thumbnail: "/images/blender/BMO.png",
-    
   },
 ];

@@ -25,7 +25,7 @@ function ProjectPreview({ src, alt }) {
   );
 }
 
-// section color map — used to give each section an accent bar that matches the navbar color
+// section colour map — used to give each section an accent bar that matches the navbar colour
 const SECTION_COLORS = {
   projects: "#851b1b", // red
   CAD: "#FB923C",      // orange
@@ -161,7 +161,7 @@ export default function Home() {
     ))}
   </div>
 
-  {/* Hover overlay: centered expanded image and blurred/dimmed background */}
+  {/* Hover overlay: centred expanded image and blurred/dimmed background */}
   {hoveredProject && (
     (() => {
       const active = blenderProjects.find((p) => p.id === hoveredProject);
@@ -174,7 +174,7 @@ export default function Home() {
             <div className="absolute inset-0 bg-black/60 backdrop-blur-sm" />
           </motion.div>
 
-          {/* Centered image */}
+          {/* Centred image */}
           <motion.div
             initial={{ opacity: 0, scale: 0.94 }}
             animate={{ opacity: 1, scale: 1 }}
