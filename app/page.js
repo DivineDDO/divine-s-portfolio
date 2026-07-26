@@ -181,8 +181,8 @@ export default function Home() {
             transition={{ duration: 0.28, ease: "easeOut" }}
             className="fixed inset-0 flex items-center justify-center z-50 pointer-events-none px-6"
           >
-            <div className="max-w-4xl w-full max-h-[80vh] rounded-3xl overflow-hidden shadow-[0_30px_80px_rgba(0,0,0,0.7)] transform">
-              <img src={src} alt={active.title} className="w-full h-full object-cover max-h-[80vh] bg-transparent" />
+            <div className="max-w-4xl w-full max-h-[80vh] rounded-3xl overflow-hidden shadow-[0_30px_80px_rgba(0,0,0,0.7)] transform relative h-[80vh]">
+              <Image src={src} alt={active.title} fill className="object-cover bg-transparent" />
             </div>
           </motion.div>
 
