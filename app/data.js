@@ -1,5 +1,3 @@
-// app/data.js
-
 export const projects = [
   {
     id: 1,

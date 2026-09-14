@@ -1,4 +1,3 @@
-/* ---------- existing base + theme (your file) ---------- */
 @import "tailwindcss";
 
 :root {
@@ -25,12 +24,12 @@ body {
 
 /* ---------- NEW: background wrapper visuals + bubble glows ---------- */
 
-/* background wrapper base (very subtle overlay) */
+/* background wrapper base */
 .bg-wrapper {
   background: linear-gradient(135deg, rgba(255,255,255,0.01), rgba(0,0,0,0.01));
 }
 
-/* two soft floating blobs inside the wrapper (pseudo elements) */
+/* two soft floating blobs inside the wrapper */
 .bg-wrapper::before,
 .bg-wrapper::after {
   content: "";
@@ -121,7 +120,7 @@ body {
 .bg-wrapper {
   position: fixed;
   inset: 0;
-  z-index: 0;               /* sits above root background but behind the content (we set main to z:10 below) */
+  z-index: 0;               /* sits above root background but behind the content (set main to z:10 below) */
   pointer-events: none;
 }
 
@@ -131,7 +130,6 @@ main {
   z-index: 10;
 }
 
-/* temporarily increase blob opacity/size so we can confirm they're visible — tweak these after testing */
 .bg-wrapper::before,
 .bg-wrapper::after {
   content: "";
