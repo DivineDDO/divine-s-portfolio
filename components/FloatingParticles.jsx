@@ -1,4 +1,6 @@
 "use client"
+// The soft drifting dots behind the hero text, just for atmosphere. Built with
+// plain DOM elements and requestAnimationFrame since it's simple enough not to need a library.
 import { useEffect, useRef } from "react"
 
 export default function FloatingParticles() {
@@ -34,13 +36,15 @@ export default function FloatingParticles() {
         el: p,
         x: rand(0, window.innerWidth),
         y: rand(0, window.innerHeight),
-        dx: rand(-0.25, 0.25),
-        dy: rand(-0.25, 0.25),
+        dx: rand(-0.25, 0.25), // horizontal speed
+        dy: rand(-0.25, 0.25), // vertical speed
       })
     }
 
     for (let i = 0; i < maxParticles; i++) createParticle()
 
+    // Moves each particle a little every frame, wrapping it to the opposite
+    // edge once it drifts off screen so the effect just keeps looping.
     let animationFrame
     function animate() {
       particles.forEach(p => {
@@ -61,6 +65,7 @@ export default function FloatingParticles() {
 
     animate()
 
+    // Stop the animation and remove the particle elements if this component ever unmounts.
     return () => {
       cancelAnimationFrame(animationFrame)
       particles.forEach(p => {

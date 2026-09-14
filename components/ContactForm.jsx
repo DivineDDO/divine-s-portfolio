@@ -1,29 +1,35 @@
 "use client";
+// The contact form at the bottom of the site. Sends the message straight to an
+// inbox using EmailJS, since there's no backend server to handle it otherwise.
 import { useState } from "react";
 import emailjs from "@emailjs/browser";
 import { motion } from "framer-motion";
 
 export default function ContactForm() {
+  // What the visitor has typed into each field so far.
   const [formData, setFormData] = useState({
     from_name: "",
     from_email: "",
     message: "",
   });
-  const [sent, setSent] = useState(false);
-  const [error, setError] = useState("");
+  const [sent, setSent] = useState(false);   // true once the email has gone out
+  const [error, setError] = useState("");    // any message to show if something goes wrong
 
+  // Fires on every keystroke, updating just the field that changed.
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
     if (error) setError("");
   };
 
+  // None of the three fields can be left empty.
   const isFormValid = () => {
     const { from_name, from_email, message } = formData;
     return from_name.trim() !== "" && from_email.trim() !== "" && message.trim() !== "";
   };
 
+  // Runs when "Send Message" is clicked.
   const sendEmail = (e) => {
-    e.preventDefault();
+    e.preventDefault(); // stop the page from reloading, like a normal form submit would
 
     if (!isFormValid()) {
       setError("Please complete all fields before sending your message.");
@@ -31,6 +37,7 @@ export default function ContactForm() {
     }
 
     setError("");
+    // These three IDs just tell EmailJS which account/template to use — not secret keys.
     emailjs
       .send(
         "service_pcgxcow",
@@ -61,6 +68,7 @@ export default function ContactForm() {
         Contact Me
       </h2>
 
+      {/* Swap the form for a thank-you message once it's sent */}
       {sent ? (
         <p className="text-green-300 text-lg text-center">
           Message sent successfully! ✨
@@ -103,6 +111,7 @@ export default function ContactForm() {
             ></textarea>
           </div>
 
+          {/* Only shows up if validation or sending fails */}
           {error ? (
             <p className="text-sm text-red-300">{error}</p>
           ) : null}

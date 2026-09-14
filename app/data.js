@@ -1,20 +1,9 @@
-export const projects = [
-  {
-    id: 1,
-    title: "Transitional Chess",
-    description: "A chess set design that transitions different 'dimensions' of play.",
-    thumbnail: "/images/projects/arm.png",
-    link: "https://1drv.ms/p/c/f5bd0da8c5428b6f/EdmV14zrVQNDo9OLi6NbbgkBsy614qP7DozEm5fwVdV7xA?e=33pYzf",
-  },
-  {
-    id: 2,
-    title: "Minimalist Lamp",
-    description: "A sleek, modern lamp design with integrated LED lighting.",
-    thumbnail: "/images/projects/lamp.png",
-    link: "https://1drv.ms/p/c/f5bd0da8c5428b6f/EdmV14zrVQNDo9OLi6NbbgkBsy614qP7DozEm5fwVdV7xA?e=33pYzf",
-  }
-];
+// Just data, no logic. Keeping it separate from page.js means adding or editing
+// a project is just editing this list, no need to touch any JSX.
 
+// Feeds the CAD Skills grid in page.js — each entry becomes one card.
+// id needs to be unique since it's how the page knows which project's popup to open,
+// thumbnail is the image path under /public, and description shows under the enlarged image.
 export const blenderProjects = [
   {
     id: 1,

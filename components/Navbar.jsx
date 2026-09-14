@@ -1,8 +1,13 @@
 "use client"
+// The nav bar at the top of the site. On desktop it hides itself once you scroll
+// down a bit, then comes back if you move the mouse near the top of the screen
+// or scroll back up. Each link also gets a coloured pill behind it that slides
+// smoothly between links as you hover or as the active section changes.
 import { Link } from "react-scroll"
 import { motion } from "framer-motion"
 import { useState, useEffect } from "react"
 
+// The five links in the nav, each with the section id it jumps to and its accent colour.
 const navItems = [
   { name: "Projects", id: "projects", color: "blue" },
   { name: "CAD", id: "CAD", color: "orange" },
@@ -12,14 +17,15 @@ const navItems = [
 ]
 
 export default function Navbar() {
-  const [active, setActive] = useState(null)
-  const [hovered, setHovered] = useState(null)
+  const [active, setActive] = useState(null)   // which section is in view right now
+  const [hovered, setHovered] = useState(null) // which link the mouse is over
 
   const [hidden, setHidden] = useState(false)
   const SCROLL_THRESHOLD = 120   // px (scroll past this -> hide)
   const HOTSPOT = 70             // px from top to reveal when pointer moves there
 
-  // initialise hidden based on current scroll / viewport
+  // Decide whether the navbar should start hidden, based on how far down the
+  // page already is. Mobile always starts visible since there's no mouse to hover with.
   useEffect(() => {
     if (typeof window === "undefined") return
 
@@ -32,6 +38,8 @@ export default function Navbar() {
     }
   }, [])
 
+  // Wires up the listeners for the show/hide behaviour: scroll position, mouse
+  // movement, and taps near the top edge on touch devices.
   useEffect(() => {
     if (typeof window === "undefined") return
 
@@ -41,7 +49,7 @@ export default function Navbar() {
       return
     }
 
-    let ticking = false
+    let ticking = false // stops us handling scroll more than once per frame
 
     function onScroll() {
       if (!ticking) {
@@ -54,6 +62,8 @@ export default function Navbar() {
       }
     }
 
+    // Moving the mouse into the top strip always brings the navbar back,
+    // even past the scroll threshold.
     function onPointerMove(e) {
       const y = e.clientY ?? -1
       if (y >= 0 && y <= HOTSPOT) {
@@ -82,6 +92,7 @@ export default function Navbar() {
     }
   }, [])
 
+  // Gets the Tailwind classes for a nav item's colour.
   const getColor = (color, type) => {
     const colors = {
       blue: { text: "text-blue-400", bg: "bg-blue-500/20" },
@@ -93,6 +104,7 @@ export default function Navbar() {
     return colors[color]?.[type] || colors.blue[type]
   }
 
+  // Picks the glow effect for a colour (defined in globals.css).
   const glowFor = (color) =>
     color === "blue" ? "bg-blue-glow" :
     color === "orange" ? "bg-orange-glow" :
@@ -102,13 +114,6 @@ export default function Navbar() {
 
   return (
     <>
-      {/* Handle to bring nav back when hidden (mainly desktop) */}
-      <div
-        className={`nav-handle ${hidden ? "visible" : ""}`}
-        onClick={() => setHidden(false)}
-        aria-hidden="true"
-      />
-
       <motion.nav
         initial={{ y: -70, opacity: 0 }}
         animate={{ y: hidden ? -90 : 0, opacity: hidden ? 0 : 1 }}
@@ -125,9 +130,9 @@ export default function Navbar() {
         {/* Nav items container – scrollable on mobile */}
         <div
           className="
-            flex gap-4 md:gap-5 text-sm 
-            overflow-x-auto whitespace-nowrap 
-            md:overflow-visible 
+            flex gap-4 md:gap-5 text-sm
+            overflow-x-auto whitespace-nowrap
+            md:overflow-visible
             [-webkit-overflow-scrolling:touch]
           "
         >
@@ -145,6 +150,9 @@ export default function Navbar() {
                 onMouseEnter={() => setHovered(item.id)}
                 onMouseLeave={() => setHovered(null)}
               >
+                {/* react-scroll's Link smooth-scrolls to the matching section id,
+                    and spy watches scroll position to mark the right link active
+                    without needing a click. */}
                 <Link
                   to={item.id}
                   smooth={true}
@@ -156,6 +164,8 @@ export default function Navbar() {
                     isActive ? color : "text-gray-400"
                   }`}
                 >
+                  {/* The coloured pill behind the active or hovered link. layoutId
+                      lets it slide smoothly to its new spot instead of just jumping there. */}
                   {(isHovered || isActive) && (
                     <motion.span
                       layoutId={`bubble-${item.id}`}
