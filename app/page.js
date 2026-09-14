@@ -3,12 +3,24 @@
 import { useRef, useState } from "react";
 import { motion, useScroll, useTransform } from "framer-motion";
 import Image from "next/image";
+import dynamic from "next/dynamic";
 import Navbar from "../components/Navbar";
 import FloatingParticles from "@/components/FloatingParticles";
 import { blenderProjects } from "./data";
 import ContactForm from "../components/ContactForm";
 import SoftParticles from "@/components/SoftParticles";
 import { FadeUp, StaggerGroup, staggerItem } from "@/components/ScrollReveal";
+
+// Three.js/WebGL can't render on the server, so this loads only in the browser.
+const ScrollModel3D = dynamic(() => import("@/components/ScrollModel3D"), {
+  ssr: false,
+});
+
+// Once you've exported your model from Blender (File > Export > glTF 2.0 (.glb))
+// and dropped it in public/models/, point this at it, e.g. "/models/skatepark.glb".
+// Left null for now, so the CAD section shows a placeholder shape that already
+// rotates with scroll.
+const CAD_SHOWCASE_MODEL_URL = null;
 
 function ProjectPreview({ src, alt }) {
   const [imageSrc, setImageSrc] = useState(src);
@@ -50,6 +62,9 @@ export default function Home() {
   const heroOpacity = useTransform(heroProgress, [0, 1], [1, 0]);
   const heroScale = useTransform(heroProgress, [0, 1], [1, 0.85]);
   const heroY = useTransform(heroProgress, [0, 1], [0, -80]);
+
+  // CAD section: the 3D showcase model rotates as this section scrolls by.
+  const cadSectionRef = useRef(null);
 
   return (
     <main className="relative flex flex-col items-center justify-center min-h-screen bg-neutral-950 text-white">
@@ -159,11 +174,25 @@ export default function Home() {
       {/* CAD Skills Section */}
 <section
   id="CAD"
+  ref={cadSectionRef}
   className="min-h-screen flex flex-col justify-center px-8 py-24 border-t border-neutral-800/80"
 >
   <FadeUp className="max-w-6xl w-full mx-auto">
     <h2 className="text-4xl font-semibold mb-2 text-white tracking-tight">CAD Skills</h2>
     <div className="h-1 w-24 rounded-full mb-8" style={{ background: "linear-gradient(90deg, #fb923c, #f43f5e)" }} />
+  </FadeUp>
+
+  <FadeUp delay={0.1} className="max-w-6xl w-full mx-auto mb-10">
+    <div className="relative h-[380px] md:h-[460px] rounded-3xl overflow-hidden border border-white/10 bg-gradient-to-br from-neutral-900/80 to-neutral-800/40 backdrop-blur-md shadow-[0_10px_30px_rgba(0,0,0,0.25)]">
+      <ScrollModel3D
+        sectionRef={cadSectionRef}
+        modelUrl={CAD_SHOWCASE_MODEL_URL}
+        className="w-full h-full"
+      />
+      <p className="absolute bottom-4 left-1/2 -translate-x-1/2 text-xs uppercase tracking-[0.2em] text-neutral-400 pointer-events-none">
+        Scroll to rotate
+      </p>
+    </div>
   </FadeUp>
 
   <StaggerGroup className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6 max-w-6xl w-full mx-auto">
