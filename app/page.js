@@ -1,13 +1,14 @@
 "use client";
 
-import { useState } from "react";
-import { motion } from "framer-motion";
+import { useRef, useState } from "react";
+import { motion, useScroll, useTransform } from "framer-motion";
 import Image from "next/image";
 import Navbar from "../components/Navbar";
 import FloatingParticles from "@/components/FloatingParticles";
 import { blenderProjects } from "./data";
 import ContactForm from "../components/ContactForm";
 import SoftParticles from "@/components/SoftParticles";
+import { FadeUp, StaggerGroup, staggerItem } from "@/components/ScrollReveal";
 
 function ProjectPreview({ src, alt }) {
   const [imageSrc, setImageSrc] = useState(src);
@@ -38,6 +39,18 @@ const SECTION_COLORS = {
 
 export default function Home() {
   const [hoveredProject, setHoveredProject] = useState(null);
+
+  // Apple-style hero: as you scroll past it, the hero content fades,
+  // shrinks slightly and drifts up before the next section takes over.
+  const heroRef = useRef(null);
+  const { scrollYProgress: heroProgress } = useScroll({
+    target: heroRef,
+    offset: ["start start", "end start"],
+  });
+  const heroOpacity = useTransform(heroProgress, [0, 1], [1, 0]);
+  const heroScale = useTransform(heroProgress, [0, 1], [1, 0.85]);
+  const heroY = useTransform(heroProgress, [0, 1], [0, -80]);
+
   return (
     <main className="relative flex flex-col items-center justify-center min-h-screen bg-neutral-950 text-white">
       <SoftParticles />
@@ -46,30 +59,36 @@ export default function Home() {
       {/* Hero Section */}
       <section
         id="home"
+        ref={heroRef}
         className="relative flex flex-col items-center justify-center min-h-screen px-6 overflow-hidden"
       >
         {/* Floating particles behind the text */}
         <FloatingParticles />
 
-        {/* Animated Name */}
-        <motion.h1
-          initial={{ opacity: 0, y: -20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8 }}
-          className="text-6xl md:text-7xl font-extrabold tracking-tight mb-3 mt-24 text-transparent bg-clip-text bg-gradient-to-r from-red-600 via-white/90 to-purple-500 animate-pulse-slow"
+        <motion.div
+          style={{ opacity: heroOpacity, scale: heroScale, y: heroY }}
+          className="flex flex-col items-center"
         >
-          Divine Obienu
-        </motion.h1>
+          {/* Animated Name */}
+          <motion.h1
+            initial={{ opacity: 0, y: -20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8 }}
+            className="text-6xl md:text-7xl font-extrabold tracking-tight mb-3 mt-24 text-transparent bg-clip-text bg-gradient-to-r from-red-600 via-white/90 to-purple-500 animate-pulse-slow"
+          >
+            Divine Obienu
+          </motion.h1>
 
-        {/* Floating Subtitle */}
-        <motion.h2
-          initial={{ opacity: 0, y: -10 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 2, delay: 0.5 }}
-          className="text-lg md:text-xl text-neutral-300 max-w-xl text-center z-10 relative tracking-[0.2em] uppercase"
-        >
-          Design Engineer • Creator • Innovator
-        </motion.h2>
+          {/* Floating Subtitle */}
+          <motion.h2
+            initial={{ opacity: 0, y: -10 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 2, delay: 0.5 }}
+            className="text-lg md:text-xl text-neutral-300 max-w-xl text-center z-10 relative tracking-[0.2em] uppercase"
+          >
+            Design Engineer • Creator • Innovator
+          </motion.h2>
+        </motion.div>
       </section>
 
           {/* Projects Section */}
@@ -77,16 +96,17 @@ export default function Home() {
         id="projects"
         className="min-h-screen flex flex-col justify-center items-center px-8 py-24 border-t border-neutral-800/80"
       >
-        <div className="max-w-5xl w-full">
+        <FadeUp className="max-w-5xl w-full">
           <h2 className="text-4xl font-semibold mb-2 text-white tracking-tight">
             Projects
           </h2>
           <div className="h-1 w-24 rounded-full mb-10" style={{ background: "linear-gradient(90deg, #f43f5e, #a78bfa)" }} />
-        </div>
+        </FadeUp>
 
-        <div className="grid grid-cols-1 sm:grid-cols-2 gap-8 w-full max-w-5xl justify-items-center">
+        <StaggerGroup className="grid grid-cols-1 sm:grid-cols-2 gap-8 w-full max-w-5xl justify-items-center">
           {/* Transitional Chess */}
-          <a
+          <motion.a
+            variants={staggerItem}
             href="https://1drv.ms/p/c/f5bd0da8c5428b6f/EdmV14zrVQNDo9OLi6NbbgkBsy614qP7DozEm5fwVdV7xA?e=33pYzf"
             target="_blank"
             rel="noopener noreferrer"
@@ -107,10 +127,11 @@ export default function Home() {
                 interaction.
               </p>
             </motion.div>
-          </a>
+          </motion.a>
 
           {/* LED Lamp */}
-          <a
+          <motion.a
+            variants={staggerItem}
             href="https://1drv.ms/p/c/f5bd0da8c5428b6f/EbAq4qFF95ZKmnc7aFObCv4BjB_rHf3NJmEZID0bu7Ltag?e=h0poN3"
             target="_blank"
             rel="noopener noreferrer"
@@ -130,8 +151,8 @@ export default function Home() {
                 can influence mood and the character of a space.
               </p>
             </motion.div>
-          </a>
-        </div>
+          </motion.a>
+        </StaggerGroup>
       </section>
 
 
@@ -140,15 +161,16 @@ export default function Home() {
   id="CAD"
   className="min-h-screen flex flex-col justify-center px-8 py-24 border-t border-neutral-800/80"
 >
-  <div className="max-w-6xl w-full mx-auto">
+  <FadeUp className="max-w-6xl w-full mx-auto">
     <h2 className="text-4xl font-semibold mb-2 text-white tracking-tight">CAD Skills</h2>
     <div className="h-1 w-24 rounded-full mb-8" style={{ background: "linear-gradient(90deg, #fb923c, #f43f5e)" }} />
-  </div>
+  </FadeUp>
 
-  <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6 max-w-6xl w-full mx-auto">
+  <StaggerGroup className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6 max-w-6xl w-full mx-auto">
     {blenderProjects.map((proj) => (
-      <div
+      <motion.div
         key={proj.id}
+        variants={staggerItem}
         onClick={() => setHoveredProject((cur) => (cur === proj.id ? null : proj.id))}
         className="bg-neutral-900/70 rounded-3xl p-4 transition transform shadow-[0_10px_30px_rgba(0,0,0,0.25)] border border-white/10 cursor-pointer"
       >
@@ -159,9 +181,9 @@ export default function Home() {
 
         <h3 className="font-bold text-lg">{proj.title}</h3>
         <p className="text-gray-400 text-sm">{proj.description}</p>
-      </div>
+      </motion.div>
     ))}
-  </div>
+  </StaggerGroup>
 
   {/* Hover overlay: centred expanded image and blurred/dimmed background */}
   {hoveredProject && (
@@ -207,14 +229,16 @@ export default function Home() {
         id="music"
         className="min-h-screen flex flex-col justify-center px-8 py-24 border-t border-neutral-800/80 relative z-10"
       >
-        <div className="max-w-3xl w-full mx-auto">
+        <FadeUp className="max-w-3xl w-full mx-auto">
           <h2 className="text-4xl font-semibold mb-2 text-white tracking-tight">Music</h2>
           <div className="h-1 w-24 rounded-full mb-8" style={{ background: "linear-gradient(90deg, #a78bfa, #38bdf8)" }} />
-        </div>
-        <p className="text-gray-200 max-w-3xl mx-auto leading-relaxed text-lg">
-          Music is where I tell the stories behind everything I learn, fight, or overcome.
+        </FadeUp>
+        <FadeUp delay={0.15} className="text-gray-200 max-w-3xl mx-auto leading-relaxed text-lg">
+          <p>
+            Music is where I tell the stories behind everything I learn, fight, or overcome.
 I create Christian rap that blends faith, honesty, and reflection — the same mindset I bring into my engineering work. It’s another way I communicate: not just through visuals or design, but through rhythm, lyricism, and testimony.
-        </p>
+          </p>
+        </FadeUp>
       </section>
 
       {/* About Section */}
@@ -222,16 +246,18 @@ I create Christian rap that blends faith, honesty, and reflection — the same m
         id="about"
         className="min-h-screen flex flex-col justify-center px-8 py-24 border-t border-neutral-800/80 relative z-10"
       >
-        <div className="max-w-4xl w-full mx-auto">
+        <FadeUp className="max-w-4xl w-full mx-auto">
           <h2 className="text-4xl font-semibold mb-2 text-white tracking-tight">About</h2>
           <div className="h-1 w-24 rounded-full mb-8" style={{ background: "linear-gradient(90deg, #34d399, #60a5fa)" }} />
-        </div>
-        <p className="text-gray-200 max-w-4xl mx-auto leading-relaxed text-lg">
-          I'm Divine Obienu, an aspiring Design Engineer who is always curious about how things work and how to make them better. 
-          I like taking an idea from a sketch to a 3D model, and then into a real-world prototype. Outside of engineering, I love to spend time making music, learning about different cultures/thought processes of people and in some occasions animals. 
-          In my music, I'm mainly writing things that are about faith, however a common theme you'd find in my lyrics isn't me dishing a line about "find Christ" but rather it's more about telling my story and experiences I've had. Which all in all is what everything I do is about. Telling my story.
-          This portfolio showcases skills I've spent my time developing; however, it is no where near complete yet. There is still so much more I want to learn and create, and I hope to share that journey with you.
-        </p>
+        </FadeUp>
+        <FadeUp delay={0.15} className="text-gray-200 max-w-4xl mx-auto leading-relaxed text-lg">
+          <p>
+            I'm Divine Obienu, an aspiring Design Engineer who is always curious about how things work and how to make them better.
+            I like taking an idea from a sketch to a 3D model, and then into a real-world prototype. Outside of engineering, I love to spend time making music, learning about different cultures/thought processes of people and in some occasions animals.
+            In my music, I'm mainly writing things that are about faith, however a common theme you'd find in my lyrics isn't me dishing a line about "find Christ" but rather it's more about telling my story and experiences I've had. Which all in all is what everything I do is about. Telling my story.
+            This portfolio showcases skills I've spent my time developing; however, it is no where near complete yet. There is still so much more I want to learn and create, and I hope to share that journey with you.
+          </p>
+        </FadeUp>
       </section>
 
       {/* Contact Section */}
@@ -239,7 +265,9 @@ I create Christian rap that blends faith, honesty, and reflection — the same m
         id="contact"
         className="min-h-screen flex flex-col justify-center px-8 py-24 border-t border-neutral-800/80 mb-20"
       >
-        <ContactForm />
+        <FadeUp>
+          <ContactForm />
+        </FadeUp>
       </section>
     </main>
   );
