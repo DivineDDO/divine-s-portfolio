@@ -113,78 +113,76 @@ export default function Navbar() {
     "bg-pink-glow"
 
   return (
-    <>
-      <motion.nav
-        initial={{ y: -70, opacity: 0 }}
-        animate={{ y: hidden ? -90 : 0, opacity: hidden ? 0 : 1 }}
-        transition={{ type: "spring", stiffness: 260, damping: 28 }}
-        className="fixed top-0 left-0 w-full bg-neutral-950/70 backdrop-blur-lg text-white px-4 md:px-6 py-3 flex justify-between items-center z-50 border-b border-neutral-800"
-        onMouseEnter={() => setHovered(true)}
-        onMouseLeave={() => setHovered(false)}
-        onPointerEnter={() => setHidden(false)}
+    <motion.nav
+      initial={{ y: -70, opacity: 0 }}
+      animate={{ y: hidden ? -90 : 0, opacity: hidden ? 0 : 1 }}
+      transition={{ type: "spring", stiffness: 260, damping: 28 }}
+      className="fixed top-0 left-0 w-full bg-neutral-950/70 backdrop-blur-lg text-white px-4 md:px-6 py-3 flex justify-between items-center z-50 border-b border-neutral-800"
+      onMouseEnter={() => setHovered(true)}
+      onMouseLeave={() => setHovered(false)}
+      onPointerEnter={() => setHidden(false)}
+    >
+      <a href="/" className="text-lg md:text-xl font-bold hover:text-gray-300 transition whitespace-nowrap mr-4">
+        Divine<span className="text-red-700">.</span>
+      </a>
+
+      {/* Nav items container – scrollable on mobile */}
+      <div
+        className="
+          flex gap-4 md:gap-5 text-sm
+          overflow-x-auto overflow-y-hidden whitespace-nowrap
+          md:overflow-visible
+          [-webkit-overflow-scrolling:touch]
+          scrollbar-hide
+        "
       >
-        <a href="/" className="text-lg md:text-xl font-bold hover:text-gray-300 transition whitespace-nowrap mr-4">
-          Divine<span className="text-red-700">.</span>
-        </a>
+        {navItems.map((item) => {
+          const isActive = active === item.id
+          const isHovered = hovered === item.id
+          const color = getColor(item.color, "text")
+          const bgColor = getColor(item.color, "bg")
+          const glowClass = glowFor(item.color)
 
-        {/* Nav items container – scrollable on mobile */}
-        <div
-          className="
-            flex gap-4 md:gap-5 text-sm
-            overflow-x-auto overflow-y-hidden whitespace-nowrap
-            md:overflow-visible
-            [-webkit-overflow-scrolling:touch]
-            scrollbar-hide
-          "
-        >
-          {navItems.map((item) => {
-            const isActive = active === item.id
-            const isHovered = hovered === item.id
-            const color = getColor(item.color, "text")
-            const bgColor = getColor(item.color, "bg")
-            const glowClass = glowFor(item.color)
-
-            return (
-              <motion.div
-                key={item.id}
-                className="relative cursor-pointer"
-                onMouseEnter={() => setHovered(item.id)}
-                onMouseLeave={() => setHovered(null)}
+          return (
+            <motion.div
+              key={item.id}
+              className="relative cursor-pointer"
+              onMouseEnter={() => setHovered(item.id)}
+              onMouseLeave={() => setHovered(null)}
+            >
+              {/* react-scroll's Link smooth-scrolls to the matching section id,
+                  and spy watches scroll position to mark the right link active
+                  without needing a click. */}
+              <Link
+                to={item.id}
+                smooth={true}
+                spy={true}
+                offset={-70}
+                duration={600}
+                onSetActive={() => setActive(item.id)}
+                className={`relative px-3 py-1 font-medium transition-colors duration-300 ${
+                  isActive ? color : "text-gray-400"
+                }`}
               >
-                {/* react-scroll's Link smooth-scrolls to the matching section id,
-                    and spy watches scroll position to mark the right link active
-                    without needing a click. */}
-                <Link
-                  to={item.id}
-                  smooth={true}
-                  spy={true}
-                  offset={-70}
-                  duration={600}
-                  onSetActive={() => setActive(item.id)}
-                  className={`relative px-3 py-1 font-medium transition-colors duration-300 ${
-                    isActive ? color : "text-gray-400"
-                  }`}
-                >
-                  {/* The coloured pill behind the active or hovered link. layoutId
-                      lets it slide smoothly to its new spot instead of just jumping there. */}
-                  {(isHovered || isActive) && (
-                    <motion.span
-                      layoutId={`bubble-${item.id}`}
-                      className={`absolute inset-0 rounded-full ${bgColor} ${glowClass}`}
-                      initial={{ scale: 0 }}
-                      animate={{ scale: 1, opacity: 1 }}
-                      exit={{ scale: 0, opacity: 0 }}
-                      transition={{ type: "spring", stiffness: 200, damping: 15 }}
-                    />
-                  )}
+                {/* The coloured pill behind the active or hovered link. layoutId
+                    lets it slide smoothly to its new spot instead of just jumping there. */}
+                {(isHovered || isActive) && (
+                  <motion.span
+                    layoutId={`bubble-${item.id}`}
+                    className={`absolute inset-0 rounded-full ${bgColor} ${glowClass}`}
+                    initial={{ scale: 0 }}
+                    animate={{ scale: 1, opacity: 1 }}
+                    exit={{ scale: 0, opacity: 0 }}
+                    transition={{ type: "spring", stiffness: 200, damping: 15 }}
+                  />
+                )}
 
-                  <span className="relative z-10">{item.name}</span>
-                </Link>
-              </motion.div>
-            )
-          })}
-        </div>
-      </motion.nav>
-    </>
+                <span className="relative z-10">{item.name}</span>
+              </Link>
+            </motion.div>
+          )
+        })}
+      </div>
+    </motion.nav>
   )
 }

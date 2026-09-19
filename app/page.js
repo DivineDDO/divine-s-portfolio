@@ -141,7 +141,7 @@ export default function Home() {
       <section
         id="projects"
         ref={projectsRef}
-        className="min-h-screen flex flex-col justify-center items-center px-8 py-24"
+        className="relative min-h-screen flex flex-col justify-center items-center px-8 py-24"
       >
         {/* Fades and scales this whole section in and out as you scroll past it */}
         <AppleScrollSection sectionRef={projectsRef} className="w-full flex flex-col items-center">
@@ -153,58 +153,86 @@ export default function Home() {
           <div className="h-1 w-24 rounded-full mb-10" style={{ background: "linear-gradient(90deg, #f43f5e, #a78bfa)" }} />
         </FadeUp>
 
-        {/* Makes the two cards below animate in one after the other instead of both at once */}
-        <StaggerGroup className="grid grid-cols-1 sm:grid-cols-2 gap-8 w-full max-w-5xl justify-items-center">
-          {/* Transitional Chess */}
-          <motion.a
-            variants={staggerItem}
-            href="https://1drv.ms/p/c/f5bd0da8c5428b6f/EdmV14zrVQNDo9OLi6NbbgkBsy614qP7DozEm5fwVdV7xA?e=33pYzf"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <motion.div
-              whileHover={{ scale: 1.1 }}
-              transition={{ type: "spring", stiffness: 200, damping: 12 }}
-              className="bg-gradient-to-br from-neutral-900/90 to-neutral-800/70 border border-white/10 rounded-3xl p-6 backdrop-blur-md shadow-[0_10px_30px_rgba(0,0,0,0.25)] hover:shadow-[0_16px_40px_rgba(255,255,255,0.08)] hover:border-white/20 transition cursor-pointer"
-            >
-              <h3 className="text-xl font-semibold text-white mb-2">
-                Educational Games and Toys: Transitional Chess
-              </h3>
-              <p className="text-gray-300 text-sm leading-relaxed">
-                A reimagined chess set that transitions between different
-                &quot;dimensions&quot; of play. The design explores how an
-                added spatial layer can increase strategic depth and encourage
-                players to think more abstractly about movement, position and
-                interaction.
-              </p>
-            </motion.div>
-          </motion.a>
-
-          {/* LED Lamp */}
+        {/* Makes the cards below animate in one after the other instead of all at once.
+            Only 2 real projects exist right now, so 2 equal columns keeps them centred
+            as a symmetric pair. Bump this to 3 columns once a third project is added. */}
+        <StaggerGroup className="grid grid-cols-1 sm:grid-cols-2 gap-8 w-full max-w-3xl mx-auto items-stretch">
+          {/* LED Lamp — Divine's first project, Year 10-11 */}
           <motion.a
             variants={staggerItem}
             href="https://1drv.ms/p/c/f5bd0da8c5428b6f/EbAq4qFF95ZKmnc7aFObCv4BjB_rHf3NJmEZID0bu7Ltag?e=h0poN3"
             target="_blank"
             rel="noopener noreferrer"
+            className="w-full h-full"
           >
             <motion.div
-              whileHover={{ scale: 1.1 }}
+              whileHover={{ scale: 1.05 }}
               transition={{ type: "spring", stiffness: 200, damping: 12 }}
-              className="bg-gradient-to-br from-neutral-900/90 to-neutral-800/70 border border-white/10 rounded-3xl p-6 backdrop-blur-md shadow-[0_10px_30px_rgba(0,0,0,0.25)] hover:shadow-[0_16px_40px_rgba(255,255,255,0.08)] hover:border-white/20 transition cursor-pointer"
+              className="h-full bg-gradient-to-br from-neutral-900/90 to-neutral-800/70 border border-white/10 rounded-3xl p-8 backdrop-blur-md shadow-[0_10px_30px_rgba(0,0,0,0.25)] hover:shadow-[0_16px_40px_rgba(255,255,255,0.08)] hover:border-white/20 transition cursor-pointer flex flex-col items-center text-center"
             >
-              <h3 className="text-xl font-semibold text-white mb-2">
+              <p className="text-xs uppercase tracking-[0.2em] text-gray-500 mb-3">
+                Personal Project • Year 10–11
+              </p>
+              <h3 className="text-2xl font-bold tracking-tight text-white mb-4">
                 LED Lamp
               </h3>
-              <p className="text-gray-300 text-sm leading-relaxed">
-                A minimalist LED lamp design that prioritises clean form,
-                controlled light spill and user comfort. The project explores
-                how simple geometry, surface treatment and colour temperature
-                can influence mood and the character of a space.
+              <span className="inline-flex items-center gap-1.5 text-sm font-medium text-rose-400 mb-5">
+                View Presentation <span aria-hidden="true">↗</span>
+              </span>
+              <div className="h-px w-full bg-white/10 mb-5" />
+              <p className="text-gray-300 text-sm leading-relaxed text-left w-full">
+                My first design project, built outside of any coursework. A
+                minimalist LED lamp that prioritises clean form, controlled
+                light spill and user comfort — exploring how simple geometry,
+                surface treatment and colour temperature can shape the mood
+                of a space.
+              </p>
+            </motion.div>
+          </motion.a>
+
+          {/* Transitional Chess — GCSE Design & Technology project */}
+          <motion.a
+            variants={staggerItem}
+            href="https://1drv.ms/p/c/f5bd0da8c5428b6f/EdmV14zrVQNDo9OLi6NbbgkBsy614qP7DozEm5fwVdV7xA?e=33pYzf"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="w-full h-full"
+          >
+            <motion.div
+              whileHover={{ scale: 1.05 }}
+              transition={{ type: "spring", stiffness: 200, damping: 12 }}
+              className="h-full bg-gradient-to-br from-neutral-900/90 to-neutral-800/70 border border-white/10 rounded-3xl p-8 backdrop-blur-md shadow-[0_10px_30px_rgba(0,0,0,0.25)] hover:shadow-[0_16px_40px_rgba(255,255,255,0.08)] hover:border-white/20 transition cursor-pointer flex flex-col items-center text-center"
+            >
+              <p className="text-xs uppercase tracking-[0.2em] text-gray-500 mb-3">
+                GCSE Design &amp; Technology Project
+              </p>
+              <h3 className="text-2xl font-bold tracking-tight text-white mb-4">
+                Transitional Chess
+              </h3>
+              <span className="inline-flex items-center gap-1.5 text-sm font-medium text-rose-400 mb-5">
+                View Presentation <span aria-hidden="true">↗</span>
+              </span>
+              <div className="h-px w-full bg-white/10 mb-5" />
+              <p className="text-gray-300 text-sm leading-relaxed text-left w-full">
+                Created for the "Educational Games and Toys" unit of my GCSE
+                coursework, this reimagined chess set transitions between
+                different &quot;dimensions&quot; of play, exploring how an
+                added spatial layer can increase strategic depth and
+                encourage more abstract thinking about movement and position.
               </p>
             </motion.div>
           </motion.a>
         </StaggerGroup>
         </AppleScrollSection>
+
+        {/* Small heads-up note, sitting outside the grid so it doesn't affect the
+            cards' symmetry. Just a marker, not clickable. Fades up into place
+            the same way everything else on the page does. */}
+        <FadeUp className="absolute bottom-6 right-6 pointer-events-none">
+          <p className="text-xs text-gray-500 border border-white/10 rounded-full px-3 py-1.5 bg-white/[0.03]">
+            New projects coming soon
+          </p>
+        </FadeUp>
       </section>
 
 
