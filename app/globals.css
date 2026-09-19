@@ -54,3 +54,12 @@ main {
 .animate-pulse-slow {
   animation: pulse-slow 5s ease-in-out infinite;
 }
+
+/* Keeps the nav links swipeable on mobile without showing the scrollbar itself */
+.scrollbar-hide {
+  scrollbar-width: none; /* Firefox */
+  -ms-overflow-style: none; /* old Edge/IE */
+}
+.scrollbar-hide::-webkit-scrollbar {
+  display: none; /* Chrome, Safari, mobile browsers */
+}

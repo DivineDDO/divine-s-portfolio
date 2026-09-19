@@ -141,7 +141,7 @@ export default function Home() {
       <section
         id="projects"
         ref={projectsRef}
-        className="min-h-screen flex flex-col justify-center items-center px-8 py-24 border-t border-neutral-800/80"
+        className="min-h-screen flex flex-col justify-center items-center px-8 py-24"
       >
         {/* Fades and scales this whole section in and out as you scroll past it */}
         <AppleScrollSection sectionRef={projectsRef} className="w-full flex flex-col items-center">
@@ -212,7 +212,7 @@ export default function Home() {
 <section
   id="CAD"
   ref={cadSectionRef}
-  className="min-h-screen flex flex-col justify-center px-8 py-24 border-t border-neutral-800/80"
+  className="min-h-screen flex flex-col justify-center px-8 py-24"
 >
   <AppleScrollSection sectionRef={cadSectionRef} className="w-full flex flex-col">
   <FadeUp className="max-w-6xl w-full mx-auto">
@@ -284,7 +284,7 @@ export default function Home() {
       <section
         id="music"
         ref={musicRef}
-        className="min-h-screen flex flex-col justify-center px-8 py-24 border-t border-neutral-800/80 relative z-10"
+        className="min-h-screen flex flex-col justify-center px-8 py-24 relative z-10"
       >
         <AppleScrollSection sectionRef={musicRef} className="w-full">
         <FadeUp className="max-w-3xl w-full mx-auto">
@@ -304,7 +304,7 @@ I create Christian rap that blends faith, honesty, and reflection — the same m
       <section
         id="about"
         ref={aboutRef}
-        className="min-h-screen flex flex-col justify-center px-8 py-24 border-t border-neutral-800/80 relative z-10"
+        className="min-h-screen flex flex-col justify-center px-8 py-24 relative z-10"
       >
         <AppleScrollSection sectionRef={aboutRef} className="w-full">
         <FadeUp className="max-w-4xl w-full mx-auto">
@@ -326,7 +326,7 @@ I create Christian rap that blends faith, honesty, and reflection — the same m
       <section
         id="contact"
         ref={contactRef}
-        className="min-h-screen flex flex-col justify-center px-8 py-24 border-t border-neutral-800/80 mb-20"
+        className="min-h-screen flex flex-col justify-center px-8 py-24 mb-20"
       >
         <AppleScrollSection sectionRef={contactRef} className="w-full">
         <FadeUp>

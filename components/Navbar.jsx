@@ -131,9 +131,10 @@ export default function Navbar() {
         <div
           className="
             flex gap-4 md:gap-5 text-sm
-            overflow-x-auto whitespace-nowrap
+            overflow-x-auto overflow-y-hidden whitespace-nowrap
             md:overflow-visible
             [-webkit-overflow-scrolling:touch]
+            scrollbar-hide
           "
         >
           {navItems.map((item) => {
