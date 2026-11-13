@@ -32,3 +32,5 @@ export default function RootLayout({ children }) {
     <MusicWidget />
   </body>
 </html>
+  );
+}
