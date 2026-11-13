@@ -1,8 +1,9 @@
-// Next.js wraps every page in this component, so anything that should apply
+// Next.js wraps every page in this component, so anything that applies
 // to the whole site lives here — the html/body tags, fonts, and page metadata
 // like the browser tab title.
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
+import MusicWidget from "@/components/MusicWidget";
 
 // Loads the "Geist" fonts from Google and turns them into CSS variables that
 // globals.css uses for regular text and monospace text.
@@ -26,11 +27,8 @@ export default function RootLayout({ children }) {
   // children is whichever page is currently being viewed — Next.js fills this in automatically.
   return (
     <html lang="en">
-      <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased`}
-      >
-        {children}
-      </body>
-    </html>
-  );
-}
+  <body className={`${geistSans.variable} ${geistMono.variable} antialiased`}>
+    {children}
+    <MusicWidget />
+  </body>
+</html>
